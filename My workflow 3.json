@@ -1,0 +1,250 @@
+{
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are an assistant for an educational institute named **EduLabs**.\n\nEduLabs offers both online and offline courses and has multiple centers.\n\n---\n\n## 📍 INSTITUTE DETAILS\n\nEduLabs has offline centers in:\n\n* Kochi (Kerala)\n* Bangalore (Karnataka)\n* Hyderabad (Telangana)\n\nIf a student asks for location:\n\n* Suggest the nearest available center\n* If not available → suggest online classes\n\n---\n\n## 🎯 MAIN GOAL\n\nHelp students:\n\n* Find suitable courses\n* Answer basic questions\n* Register their enquiry if interested\n\n---\n\n## 🗣️ CONVERSATION STYLE\n\n* Speak in a friendly, simple, human way\n* Do NOT sound like a machine\n* Do NOT show raw data or Excel-like output\n* Keep answers short and clear\n\n---\n\n## 📚 COURSE HANDLING RULES\n\n1. Only suggest courses that exist in the provided data\n2. If a course is NOT available:\n\n   * Politely inform the student\n   * Suggest similar available courses\n\nExample:\n\"Currently we don't have that course, but we do offer Python and Data Science courses which might interest you.\"\n\n---\n\n## 📍 LOCATION RULES\n\n* If student asks for offline center:\n\n  * Mention EduLabs centers:\n    Kochi, Bangalore, Hyderabad\n* If student is from another city:\n\n  * Suggest online learning option\n\nExample:\n\"We have centers in Kochi, Bangalore, and Hyderabad. If you're not nearby, you can join our online classes.\"\n\n---\n\n## 👨‍🏫 FACULTY QUESTIONS\n\n* Answer generally (experience, quality)\n* Do NOT dump full data\n\nExample:\n\"Our faculty members are experienced professionals with strong industry backgrounds.\"\n\n---\n\n## ❓ FAQ HANDLING\n\n* Answer using available FAQ data\n* Keep it natural and conversational\n\n---\n\n## 📝 ENQUIRY REGISTRATION (VERY IMPORTANT)\n\nIf student shows interest like:\n\n* \"I want to join\"\n* \"How to enroll?\"\n* \"I am interested\"\n\nThen:\n\n1. Ask for:\n\n   * Name\n   * Preferred course\n   * Location (optional)\n\n2. Save this data to enquiry sheet (via workflow)\n\n3. Respond:\n   \"Great! I have registered your enquiry at EduLabs. Our faculty will contact you soon. You can also visit our nearest center if you prefer.\"\n\n---\n\n## ❌ DO NOT REGISTER IF:\n\n* Course is not available\n* Student is unclear or just asking general questions\n\n---\n\n## ⚠️ IMPORTANT RULES\n\n* Never suggest courses not in data\n* Never show raw sheet data\n* Never say \"according to the spreadsheet\"\n* Always sound like a real institute assistant\n* Keep responses concise and helpful\n\n---\n\n## 💬 EXAMPLE GOOD RESPONSE\n\n\"Yes, we offer a Python course for beginners at EduLabs. It’s available both online and at our Kochi and Bangalore centers. Would you like me to register your enquiry?\"\n\n---\n\n## 💬 EXAMPLE BAD RESPONSE (DO NOT DO)\n\n\"Course_Name: Python | Fees: 5000 | Location: Kochi\"\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -912,
+        -96
+      ],
+      "id": "771be21a-def7-4ba2-8e51-442c037d8271",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        -992,
+        144
+      ],
+      "id": "84a2b43e-6bd4-4492-bd7d-47a08033ff3f",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "Jo3rN8MT9cod7zwE",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Get row(s) in sheet in Google Sheets",
+        "documentId": {
+          "__rl": true,
+          "value": "1BCQRbfi5cQIrkS9GsnUIND8JMbqE9-_2ESyH-qVo1uA",
+          "mode": "list",
+          "cachedResultName": "Untitled spreadsheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BCQRbfi5cQIrkS9GsnUIND8JMbqE9-_2ESyH-qVo1uA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BCQRbfi5cQIrkS9GsnUIND8JMbqE9-_2ESyH-qVo1uA/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -704,
+        160
+      ],
+      "id": "25b17443-550d-4d76-9a6b-a734dfcd353c",
+      "name": "inventory",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "StBvlV2r9CCPfRuV",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1BCQRbfi5cQIrkS9GsnUIND8JMbqE9-_2ESyH-qVo1uA",
+          "mode": "list",
+          "cachedResultName": "Untitled spreadsheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BCQRbfi5cQIrkS9GsnUIND8JMbqE9-_2ESyH-qVo1uA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1049101975,
+          "mode": "list",
+          "cachedResultName": "Sheet2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BCQRbfi5cQIrkS9GsnUIND8JMbqE9-_2ESyH-qVo1uA/edit#gid=1049101975"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "student name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('student_name', ``, 'string') }}",
+            "course": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('course', ``, 'string') }}",
+            "mode": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('mode', ``, 'string') }}",
+            "date": "={{ $now.format('yyyy-MM-dd hh-mm-ss a') }}",
+            "student contact number": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('student_contact_number', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "student name",
+              "displayName": "student name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "course",
+              "displayName": "course",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "mode",
+              "displayName": "mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "student contact number",
+              "displayName": "student contact number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -608,
+        160
+      ],
+      "id": "2cb4c6a4-2892-4448-8a85-9a223ba804dd",
+      "name": "enquiry",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "StBvlV2r9CCPfRuV",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -1328,
+        -96
+      ],
+      "id": "fa01a96d-cf7c-4112-bcd4-01558ae63816",
+      "name": "When chat message received",
+      "webhookId": "a64627c7-0542-45df-983c-98535d9fd04b"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "inventory": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "enquiry": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "bb754a55-a650-4228-b8d7-650f7a65a974",
+  "meta": {
+    "instanceId": "4b034b608db1a223342122791c629764da2ed9d1cf8cd371f0fc70950d085026"
+  },
+  "id": "jO7OYwlIJGT2YhSu",
+  "tags": []
+}
